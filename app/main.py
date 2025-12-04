@@ -1,6 +1,7 @@
 """Test service for the shipping"""
 
 from fastapi import FastAPI
+import tomllib
 
 app = FastAPI()
 
@@ -9,3 +10,7 @@ app = FastAPI()
 def health():
     """Такая вот заглушка"""
     return {"status": "ok"}
+
+
+with open('config.toml', 'rb') as f:
+    config = tomllib.load(f)
