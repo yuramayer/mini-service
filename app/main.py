@@ -1,6 +1,10 @@
 """Test service for the shipping"""
 
-from fastapi import FastAPI, Request
+from fastapi import (
+    FastAPI,
+    Request,
+    HTTPException
+)
 import tomllib
 import logging
 
@@ -38,3 +42,14 @@ def health():
 def config_message():
     """Месседж из конфига"""
     return {'msg': config['server']['message']}
+
+
+@app.get('/divide')
+def divide(a: float, b: float):
+    """Тест-функция с ошибкой"""
+    if b == 0:
+        raise HTTPException(
+            status_code=400,
+            detail="b must not be zero!"
+        )
+    return {'result': a / b}
